@@ -1,10 +1,12 @@
 # PromoCar Growth Panel
 
-Dashboard em HTML unico para organizar o funil de crescimento do grupo PromoCar.
+Dashboard em HTML para organizar o funil de crescimento do grupo PromoCar.
 
 ## Arquivos principais
 
-- `funil.html`: painel principal com visao geral, mapa mental do funil, fases, diario, metricas e conexao GitHub.
+- `index.html`: painel principal com visao geral, mapa mental do funil, fases, diario, metricas e conexao GitHub.
+- `funil.html`: redirecionamento de compatibilidade para `index.html`.
+- `package.json`, `vite.config.js` e `vercel.json`: configuracao minima para deploy na Vercel.
 - `AGENTS.md`: regras para evoluir o projeto com consistencia.
 - `docs/`: documentacao de produto, funil, roadmap, regras, metricas, QA e backlog.
 

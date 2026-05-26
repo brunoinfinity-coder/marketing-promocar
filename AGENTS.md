@@ -19,7 +19,8 @@ Este projeto deve permanecer simples, visual e operacional. O objetivo e ser um 
 
 ## Regras tecnicas
 
-- `funil.html` deve continuar funcionando como arquivo unico, com CSS e JavaScript internos.
+- `index.html` deve continuar funcionando como painel principal, com CSS e JavaScript internos.
+- `funil.html` deve continuar existindo como redirecionamento de compatibilidade.
 - Nao adicionar framework sem necessidade real.
 - Persistencia local deve usar `localStorage`.
 - Nao quebrar dados salvos sem criar migracao simples ou trocar a chave de armazenamento.

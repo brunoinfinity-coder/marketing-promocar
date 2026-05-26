@@ -2,8 +2,11 @@
 
 ## Arquitetura
 
-- O produto principal e `funil.html`.
-- O arquivo deve continuar abrindo diretamente no navegador.
+- O produto principal e `index.html`.
+- `funil.html` existe apenas como redirecionamento de compatibilidade.
+- O painel deve continuar abrindo diretamente no navegador.
+- O projeto tambem deve compilar com `vite build` para deploy na Vercel.
+- A Vercel deve usar `dist` como diretorio de saida.
 - CSS e JavaScript permanecem internos enquanto o projeto for simples.
 - Se o painel crescer muito, separar em `src/` deve ser uma decisao planejada.
 
