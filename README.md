@@ -29,6 +29,15 @@ Conteudo -> Captura -> Grupo -> Ofertas -> Retencao -> Escala
 
 O mapa mental visual no painel mostra esse fluxo conectado ao grupo PromoCar.
 
+## Estrutura da interface
+
+- `Painel`: visao geral executiva.
+- `Funil`: mapa mental visual da operacao.
+- `Fases`: plano faseado e checklist.
+- `Metricas`: leitura objetiva de decisao.
+- `Registros`: area isolada para uso futuro.
+- `GitHub`: referencia do repositorio.
+
 ## Dados locais
 
 O painel usa `localStorage` do navegador para salvar:

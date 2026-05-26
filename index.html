@@ -108,6 +108,10 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
+      color: var(--text);
+      background: transparent;
+      border: 0;
+      text-align: left;
     }
 
     .logo {
@@ -142,7 +146,7 @@
       justify-content: flex-end;
     }
 
-    .nav a,
+    .nav button,
     .btn,
     .icon-btn,
     .phase-tab {
@@ -158,7 +162,7 @@
       transition: transform .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease), background .18s var(--ease);
     }
 
-    .nav a,
+    .nav button,
     .btn,
     .phase-tab {
       padding: 0 12px;
@@ -170,7 +174,7 @@
       padding: 0;
     }
 
-    .nav a:hover,
+    .nav button:hover,
     .btn:hover,
     .icon-btn:hover,
     .phase-tab:hover {
@@ -181,6 +185,7 @@
     }
 
     .btn.primary,
+    .nav button.active,
     .phase-tab.active {
       color: #06120b;
       border-color: transparent;
@@ -204,6 +209,30 @@
       grid-template-columns: 1fr;
       gap: 14px;
       margin-top: 14px;
+    }
+
+    .tab-panel:not(.active) {
+      display: none !important;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: tabReveal .22s var(--ease);
+    }
+
+    .hero-grid.tab-panel.active {
+      display: grid;
+    }
+
+    @keyframes tabReveal {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .section {
@@ -450,6 +479,8 @@
       border: 1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       background: rgba(255,255,255,.035);
+      min-width: 0;
+      overflow: hidden;
     }
 
     .funnel-flow {
@@ -738,6 +769,83 @@
       color: var(--muted);
       font-size: 11px;
       text-transform: uppercase;
+    }
+
+    .mindmap-canvas {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-areas:
+        "conteudo captura grupo"
+        ". engine ."
+        "escala retencao ofertas";
+      gap: 26px;
+      padding: 34px;
+      align-items: center;
+    }
+
+    .mind-node {
+      position: relative;
+      width: auto;
+      min-height: 172px;
+    }
+
+    .mind-node.center {
+      width: min(360px, 100%);
+      min-height: 170px;
+      left: auto;
+      top: auto;
+      grid-area: engine;
+      justify-self: center;
+      z-index: 3;
+    }
+
+    .mind-node.node-conteudo { grid-area: conteudo; left: auto; top: auto; }
+    .mind-node.node-captura { grid-area: captura; left: auto; top: auto; }
+    .mind-node.node-grupo { grid-area: grupo; right: auto; top: auto; }
+    .mind-node.node-ofertas { grid-area: ofertas; right: auto; bottom: auto; }
+    .mind-node.node-retencao { grid-area: retencao; left: auto; bottom: auto; }
+    .mind-node.node-escala { grid-area: escala; left: auto; bottom: auto; }
+
+    .mind-node::after {
+      content: attr(data-status);
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .mind-node.center::after {
+      display: none;
+    }
+
+    .mind-node.active::after {
+      color: #d9ffe9;
+    }
+
+    .mindmap-note {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid rgba(64,249,155,.20);
+      border-radius: var(--radius);
+      background: rgba(64,249,155,.07);
+    }
+
+    .mindmap-note strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .mindmap-note span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     .phase-tabs {
@@ -1036,17 +1144,35 @@
 
     @media (max-width: 720px) {
       .app {
-        width: calc(100vw - 20px);
+        width: min(370px, calc(100vw - 20px));
         padding-top: 10px;
+        overflow: hidden;
       }
 
       .topbar {
         position: static;
+        overflow: hidden;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .nav {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav button {
+        width: 100%;
+        min-width: 0;
+        padding: 0 8px;
       }
 
       .section,
       .hero-copy {
-        padding: 16px;
+        padding: 14px;
       }
 
       .section-head {
@@ -1084,8 +1210,17 @@
       .mindmap-canvas {
         min-height: auto;
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+          "engine"
+          "conteudo"
+          "captura"
+          "grupo"
+          "ofertas"
+          "retencao"
+          "escala";
         gap: 10px;
-        padding: 12px;
+        padding: 8px;
       }
 
       .mindmap-lines {
@@ -1099,8 +1234,25 @@
         right: auto;
         top: auto;
         bottom: auto;
-        width: 100%;
+        width: calc(100% - 12px);
+        max-width: 100%;
+        min-width: 0;
         min-height: auto;
+        justify-self: center;
+      }
+
+      .mind-node::after {
+        display: none;
+      }
+
+      .funnel-board {
+        padding: 8px;
+      }
+
+      .mind-node p,
+      .mind-node small,
+      .sub {
+        overflow-wrap: anywhere;
       }
 
       .score-row {
@@ -1121,20 +1273,21 @@
 <body>
   <main class="app">
     <header class="topbar glass">
-      <a class="brand" href="#visao-geral" aria-label="Ir para visão geral">
+      <button class="brand" type="button" data-tab-target="painel" aria-label="Ir para visão geral">
         <div class="logo">PC</div>
         <div>
           <strong>PromoCar Growth Panel</strong>
           <span>Operação faseada de tráfego e afiliados</span>
         </div>
-      </a>
+      </button>
 
       <nav class="nav" aria-label="Navegação principal">
-        <a href="#funil">Funil</a>
-        <a href="#fases">Fases</a>
-        <a href="#diario">Diário</a>
-        <a href="#metricas">Métricas</a>
-        <a href="#github">GitHub</a>
+        <button class="active" type="button" data-tab-target="painel">Painel</button>
+        <button type="button" data-tab-target="funil">Funil</button>
+        <button type="button" data-tab-target="fases">Fases</button>
+        <button type="button" data-tab-target="metricas">Métricas</button>
+        <button type="button" data-tab-target="registros">Registros</button>
+        <button type="button" data-tab-target="github">GitHub</button>
         <button class="icon-btn" type="button" id="saveButton" aria-label="Salvar painel">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
         </button>
@@ -1142,13 +1295,13 @@
     </header>
 
     <div class="layout">
-      <section class="hero-grid" id="visao-geral">
+      <section class="hero-grid tab-panel active" id="visao-geral" data-tab-panel="painel">
         <div class="hero-copy glass">
           <div>
             <span class="badge green"><span class="dot"></span> Orgânico primeiro · Pago só como alavanca</span>
             <h1>Painel faseado para tocar o funil com calma, clareza e dados.</h1>
             <p>
-              A operação avança por fases. Você preenche tarefas, registra o dia e acompanha a visão geral. O tráfego pago só entra em <strong>07/07/2026</strong>, com orçamento controlado de <strong>R$10 a R$15 por dia</strong>, depois que a base orgânica estiver validada.
+              A operação avança por fases. Você preenche tarefas, acompanha a visão geral e deixa os registros isolados para usar quando fizer sentido. O tráfego pago só entra em <strong>07/07/2026</strong>, com orçamento controlado de <strong>R$10 a R$15 por dia</strong>, depois que a base orgânica estiver validada.
             </p>
           </div>
 
@@ -1180,7 +1333,7 @@
           <div>
             <span class="badge green" id="gateBadge"><span class="dot"></span> Preparação</span>
             <h2 style="margin-top:12px">Visão executiva</h2>
-            <p class="sub">O score usa tarefas concluídas, registros diários e qualidade dos indicadores.</p>
+            <p class="sub">O score prioriza tarefas concluídas, fase atual e indicadores quando houver registros.</p>
           </div>
 
           <div class="score-row">
@@ -1192,7 +1345,7 @@
             </div>
             <div>
               <h3 id="scoreTitle">Base em construção</h3>
-              <p class="sub" id="scoreCopy">Preencha as tarefas da fase atual e registre os dados do dia.</p>
+              <p class="sub" id="scoreCopy">Preencha as tarefas da fase atual e avance o funil com calma.</p>
             </div>
           </div>
 
@@ -1200,7 +1353,7 @@
         </aside>
       </section>
 
-      <section class="section glass" id="funil">
+      <section class="section glass tab-panel" id="funil" data-tab-panel="funil">
         <div class="section-head">
           <div>
             <h2>Mapa mental do funil</h2>
@@ -1214,7 +1367,7 @@
         </div>
       </section>
 
-      <section class="section glass" id="fases">
+      <section class="section glass tab-panel" id="fases" data-tab-panel="fases">
         <div class="section-head">
           <div>
             <h2>Fases do plano</h2>
@@ -1260,11 +1413,11 @@
         </div>
       </section>
 
-      <section class="section glass" id="diario">
+      <section class="section glass tab-panel" id="diario" data-tab-panel="registros">
         <div class="section-head">
           <div>
-            <h2>Registro diário</h2>
-            <p class="sub">Preencha um registro por dia. A visão geral usa o último registro salvo para mostrar entradas, CPE, cliques, vendas e comissão.</p>
+            <h2>Registros operacionais</h2>
+            <p class="sub">Área separada para uso futuro. O painel funciona sem preencher esta parte agora; quando quiser, use para histórico diário de entradas, cliques, vendas e comissão.</p>
           </div>
           <button class="btn primary" type="button" id="saveDaily">Salvar registro</button>
         </div>
@@ -1335,7 +1488,7 @@
         </div>
       </section>
 
-      <section class="section glass" id="metricas">
+      <section class="section glass tab-panel" id="metricas" data-tab-panel="metricas">
         <div class="section-head">
           <div>
             <h2>Métricas e decisão</h2>
@@ -1378,7 +1531,7 @@
         </div>
       </section>
 
-      <section class="section glass" id="github">
+      <section class="section glass tab-panel" id="github" data-tab-panel="github">
         <div class="section-head">
           <div>
             <h2>Conexão GitHub</h2>
@@ -1564,6 +1717,7 @@
     ];
 
     const defaultState = {
+      activeTab: "painel",
       selectedPhase: "",
       tasks: {},
       notes: {},
@@ -1637,6 +1791,7 @@
     }
 
     function init() {
+      if (!state.activeTab) state.activeTab = "painel";
       if (!state.selectedPhase) state.selectedPhase = currentPhase().id;
       renderPhaseTabs();
       renderFunnel();
@@ -1648,6 +1803,13 @@
 
     function bindEvents() {
       document.getElementById("saveButton").addEventListener("click", () => saveState(true));
+      document.querySelectorAll("[data-tab-target]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.activeTab = button.dataset.tabTarget;
+          saveState();
+          updateTabs();
+        });
+      });
       document.getElementById("saveDaily").addEventListener("click", saveDailyRecord);
       document.getElementById("dailyForm").addEventListener("submit", (event) => {
         event.preventDefault();
@@ -1672,14 +1834,13 @@
           state.selectedPhase = button.dataset.phase;
           saveState();
           updateAll();
-          document.getElementById("fases").scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
     }
 
     function renderFunnel() {
       const nodes = funnel.map((step, index) => `
-        <button class="mind-node ${step.className}" type="button" data-flow="${step.id}">
+        <button class="mind-node ${step.className}" type="button" data-flow="${step.id}" data-status="etapa ${index + 1}">
           <span class="badge">${step.label}</span>
           <span class="mind-title">
             <span class="mind-number">${index + 1}</span>
@@ -1699,15 +1860,16 @@
 
       document.getElementById("funnelFlow").innerHTML = `
         <div class="mindmap-canvas">
-          <svg class="mindmap-lines" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-            <path data-flow-line="conteudo" d="M430 242 C320 136 275 104 186 102" />
-            <path data-flow-line="captura" d="M500 208 C500 166 500 118 500 76" />
-            <path data-flow-line="grupo" d="M570 238 C688 144 742 114 814 118" />
-            <path data-flow-line="ofertas" d="M570 298 C692 396 744 428 814 414" />
-            <path data-flow-line="retencao" d="M500 332 C500 394 500 448 500 494" />
-            <path data-flow-line="escala" d="M430 296 C308 404 265 428 186 414" />
-            <path class="feedback" d="M186 414 C74 304 76 190 186 102" />
-            <path class="feedback" d="M814 414 C920 298 914 198 814 118" />
+          <svg class="mindmap-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+            <path data-flow-line="conteudo" d="M170 135 C285 102 385 102 500 135" />
+            <path data-flow-line="captura" d="M500 135 C615 102 720 104 830 135" />
+            <path data-flow-line="grupo" d="M830 135 C900 230 900 385 830 488" />
+            <path data-flow-line="ofertas" d="M830 488 C715 520 615 520 500 488" />
+            <path data-flow-line="retencao" d="M500 488 C385 520 280 520 170 488" />
+            <path data-flow-line="escala" d="M170 488 C95 385 95 230 170 135" />
+            <path class="feedback" d="M500 135 C500 230 500 300 500 365" />
+            <path class="feedback" d="M170 135 C315 242 370 310 500 365" />
+            <path class="feedback" d="M830 488 C685 405 620 360 500 365" />
           </svg>
           <div class="mind-node center" data-flow="engine">
             <span class="badge green"><span class="dot"></span> Motor da operação</span>
@@ -1715,6 +1877,13 @@
             <span>Curadoria automotiva, links afiliados e dados para decidir o próximo passo.</span>
           </div>
           ${nodes}
+        </div>
+        <div class="mindmap-note">
+          <div>
+            <strong id="mindmapFocusTitle">Funil em leitura</strong>
+            <span id="mindmapFocusCopy">Clique em uma etapa para destacar a fase correspondente sem sair desta aba.</span>
+          </div>
+          <span class="badge green" id="mindmapFocusBadge">Mapa estável</span>
         </div>
         <div class="funnel-rail">
           ${rail}
@@ -1728,7 +1897,6 @@
           state.selectedPhase = phases[step.phaseIndex].id;
           saveState();
           updateAll();
-          document.getElementById("fases").scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
     }
@@ -1800,6 +1968,8 @@
       const last = latestDaily();
       const cpe = getCpe(last);
 
+      updateTabs();
+
       document.querySelectorAll("[data-phase]").forEach((button) => {
         button.classList.toggle("active", button.dataset.phase === phase.id);
       });
@@ -1831,6 +2001,16 @@
       updateScoreAndAlerts(last);
     }
 
+    function updateTabs() {
+      const activeTab = state.activeTab || "painel";
+      document.querySelectorAll("[data-tab-target]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.tabTarget === activeTab);
+      });
+      document.querySelectorAll("[data-tab-panel]").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.tabPanel === activeTab);
+      });
+    }
+
     function updatePhaseProgress(phase) {
       const done = phase.tasks.filter((_, index) => state.tasks[`${phase.id}-${index}`]).length;
       const total = phase.tasks.length;
@@ -1858,6 +2038,13 @@
       });
       const activeStep = funnel[activeIndex] || funnel[0];
       document.getElementById("flowStatus").textContent = `Etapa atual: ${activeStep.title}`;
+      const focusTitle = document.getElementById("mindmapFocusTitle");
+      const focusCopy = document.getElementById("mindmapFocusCopy");
+      const focusBadge = document.getElementById("mindmapFocusBadge");
+      const stepPhase = phases[activeStep.phaseIndex] || selectedPhase();
+      if (focusTitle) focusTitle.textContent = `${activeStep.title} no funil`;
+      if (focusCopy) focusCopy.textContent = `${activeStep.copy} ${activeStep.detail}`;
+      if (focusBadge) focusBadge.textContent = `Fase: ${stepPhase.title}`;
     }
 
     function updateDailyList() {
@@ -1938,9 +2125,6 @@
       }
       if (readyToScale) {
         alerts.push(["good", "Sinal de escala: CPE saudável, retenção acima de 75% e execução consistente."]);
-      }
-      if (!record) {
-        alerts.push(["warn", "Sem registro diário ainda. O dashboard fica mais útil quando você salva o primeiro dia."]);
       }
 
       document.getElementById("alerts").innerHTML = alerts.map(([type, text]) => `

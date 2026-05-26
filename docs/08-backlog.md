@@ -2,7 +2,6 @@
 
 ## Alta prioridade
 
-- Melhorar ainda mais o mapa mental com indicadores por etapa.
 - Adicionar exportacao dos registros diarios em CSV.
 - Criar botao para limpar dados locais com confirmacao.
 - Adicionar campo para origem da entrada: Instagram, TikTok, Shorts, Ads, Direto.

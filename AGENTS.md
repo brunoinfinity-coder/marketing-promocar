@@ -8,6 +8,8 @@ Este projeto deve permanecer simples, visual e operacional. O objetivo e ser um 
 - A estrutura principal deve ser faseada: Base, Organico, Pre-pago, Teste pago, Otimizacao e Escala leve.
 - O mapa mental do funil e uma parte central da experiencia e deve mostrar claramente a operacao completa.
 - Trafego pago so pode aparecer como alavanca de escala, nunca como estrategia principal.
+- A interface deve permanecer dividida em abas para evitar uma tela longa e misturada.
+- A area de registros deve ficar isolada enquanto nao for prioridade de uso.
 
 ## Regras visuais
 
@@ -15,6 +17,7 @@ Este projeto deve permanecer simples, visual e operacional. O objetivo e ser um 
 - Manter hierarquia limpa, bastante respiro visual e poucos elementos concorrendo.
 - Evitar tela poluida com muitos cards pequenos sem relacao clara.
 - O mapa mental precisa ser mais visual que textual.
+- Cliques no mapa mental nao devem mover a pagina automaticamente.
 - Em mobile, tudo deve empilhar sem corte horizontal.
 
 ## Regras tecnicas

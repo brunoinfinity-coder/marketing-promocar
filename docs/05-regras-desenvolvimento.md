@@ -26,6 +26,8 @@
 - Evitar poluicao visual.
 - Cada secao deve ter uma funcao clara.
 - O mapa mental do funil deve ficar sempre facil de entender.
+- A interface deve ser organizada em abas, evitando rolagem longa sem necessidade.
+- A aba de registros deve permanecer separada do fluxo principal enquanto nao estiver em uso.
 
 ## Responsividade
 
@@ -39,5 +41,6 @@
 - Abrir o HTML no navegador.
 - Conferir console do navegador quando possivel.
 - Validar que o mapa mental renderiza.
+- Validar que cliques no mapa mental nao mudam a posicao da rolagem.
 - Validar que `localStorage` salva tarefas e registros.
 - Conferir `git status` antes de commitar.
