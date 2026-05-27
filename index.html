@@ -735,6 +735,24 @@
       line-height: 1.4;
     }
 
+    .mind-micro {
+      display: grid;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .mind-micro span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .mind-micro b {
+      color: var(--soft);
+      font-weight: 760;
+    }
+
     .funnel-rail {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -882,6 +900,32 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.6;
+    }
+
+    .phase-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .detail-card {
+      min-height: 128px;
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.035);
+    }
+
+    .detail-card strong {
+      display: block;
+      margin: 8px 0 6px;
+      font-size: 13px;
+    }
+
+    .detail-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     .phase-progress {
@@ -1198,6 +1242,7 @@
       .overview-grid,
       .grid-3,
       .metric-grid,
+      .phase-detail-grid,
       .funnel-flow,
       .funnel-rail {
         grid-template-columns: 1fr;
@@ -1394,6 +1439,23 @@
               <span class="label">Objetivo da fase</span>
               <p class="sub" id="selectedPhaseObjective">-</p>
             </div>
+            <div class="phase-detail-grid">
+              <div class="detail-card">
+                <span class="label">Entregáveis</span>
+                <strong id="selectedPhaseDeliverableTitle">-</strong>
+                <p id="selectedPhaseDeliverables">-</p>
+              </div>
+              <div class="detail-card">
+                <span class="label">Pronto quando</span>
+                <strong id="selectedPhaseReadyTitle">-</strong>
+                <p id="selectedPhaseReady">-</p>
+              </div>
+              <div class="detail-card">
+                <span class="label">Rotina</span>
+                <strong id="selectedPhaseRoutineTitle">-</strong>
+                <p id="selectedPhaseRoutine">-</p>
+              </div>
+            </div>
             <div class="field">
               <label for="phaseNotes">Notas da fase</label>
               <textarea id="phaseNotes" placeholder="Ex.: o conteúdo de acessórios baratos teve mais clique; revisar CTA da landing..."></textarea>
@@ -1567,6 +1629,9 @@
         copy: "Atrair pessoas com vídeos curtos, achados e demonstrações automotivas.",
         label: "Orgânico",
         detail: "Reels, TikTok, Shorts e Stories.",
+        action: "Publicar ganchos curtos com produto visual e benefício imediato.",
+        metric: "Visualizações, retenção do vídeo, comentários e entradas orgânicas.",
+        decision: "Transformar os melhores ganchos em criativos para captura.",
         className: "node-conteudo",
         phaseIndex: 0
       },
@@ -1576,6 +1641,9 @@
         copy: "Levar interessados para uma landing page simples com botão para o grupo.",
         label: "Landing",
         detail: "Promessa clara, prova visual e CTA direto.",
+        action: "Enviar o tráfego para uma página sem distração, com promessa e botão.",
+        metric: "Taxa de clique no botão, entradas por origem e abandono da página.",
+        decision: "Ajustar promessa ou CTA antes de colocar verba em anúncio.",
         className: "node-captura",
         phaseIndex: 1
       },
@@ -1585,6 +1653,9 @@
         copy: "Receber o membro com promessa clara, rotina útil e baixa sensação de spam.",
         label: "WhatsApp",
         detail: "Entrada limpa, regras e experiência sem excesso.",
+        action: "Entregar boas-vindas, regras simples e frequência saudável de ofertas.",
+        metric: "Retenção, respostas, saídas do grupo e engajamento nos posts.",
+        decision: "Reduzir ruído se a saída crescer ou a interação cair.",
         className: "node-grupo",
         phaseIndex: 2
       },
@@ -1594,6 +1665,9 @@
         copy: "Publicar produtos com curadoria, contexto, preço e link afiliado rastreado.",
         label: "Afiliado",
         detail: "Mercado Livre, categorias e links por origem.",
+        action: "Postar poucas ofertas boas com preço, benefício e contexto de uso.",
+        metric: "Cliques nos links, vendas, comissão e categoria do produto.",
+        decision: "Dobrar nas categorias que geram clique e venda.",
         className: "node-ofertas",
         phaseIndex: 2
       },
@@ -1603,6 +1677,9 @@
         copy: "Medir saída, cliques e vendas para entender se a base quer continuar.",
         label: "Dados",
         detail: "CPE, retenção, cliques, vendas e comissão.",
+        action: "Ler os sinais da operação antes de aumentar volume.",
+        metric: "Retenção acima de 75%, CPE até R$1,50 e vendas aparecendo.",
+        decision: "Manter, ajustar ou cortar conforme qualidade da base.",
         className: "node-retencao",
         phaseIndex: 3
       },
@@ -1612,6 +1689,9 @@
         copy: "Usar pago a partir de 07/07 para amplificar criativos já validados.",
         label: "Pago",
         detail: "R$10 a R$15/dia, corte rápido e escala leve.",
+        action: "Rodar baixo orçamento somente com criativo já validado no orgânico.",
+        metric: "CPE, retenção por origem, cliques e comissão por campanha.",
+        decision: "Escalar só com custo saudável e retenção forte.",
         className: "node-escala",
         phaseIndex: 4
       }
@@ -1627,10 +1707,18 @@
         flow: "conteudo",
         copy: "Organizar a operação sem gastar com anúncio.",
         objective: "Ter posicionamento, categorias e rotina mínima antes de acelerar qualquer coisa.",
+        deliverableTitle: "Fundação pronta",
+        deliverables: "Bio ajustada, promessa clara, categorias escolhidas, lista inicial de produtos e rotina semanal definida.",
+        readyTitle: "Sem improviso",
+        ready: "Você consegue explicar o grupo em uma frase, sabe quais produtos procurar e tem uma rotina realista para executar.",
+        routineTitle: "30 a 45 min/dia",
+        routine: "Pesquisar produtos, salvar referências, revisar perfil e organizar ideias de posts antes de publicar pesado.",
         tasks: [
           ["Ajustar bio e promessa do grupo", "Deixar claro que o grupo entrega achados automotivos úteis."],
           ["Definir 5 categorias prioritárias", "Ex.: limpeza, acessórios, segurança, som, ferramentas."],
           ["Criar lista inicial de produtos", "Separar produtos com preço, benefício e potencial visual."],
+          ["Criar critérios de curadoria", "Produto precisa ser útil, desejável, barato, demonstrável ou ter desconto claro."],
+          ["Separar canais de divulgação", "Definir onde postar: Instagram, TikTok, Shorts, Stories e grupos de apoio."],
           ["Definir rotina semanal", "Saber quando pesquisar, postar, medir e revisar."]
         ]
       },
@@ -1643,11 +1731,19 @@
         flow: "captura",
         copy: "Publicar e observar o que gera entrada sem mídia paga.",
         objective: "Validar ganchos, categorias e promessa antes de criar campanha.",
+        deliverableTitle: "Sinais orgânicos",
+        deliverables: "Sequência de posts, biblioteca de ganchos, primeiros dados por origem e criativos promissores separados.",
+        readyTitle: "Conteúdo validado",
+        ready: "Ao menos 3 formatos mostram sinal de interesse: salvamento, comentário, clique, direct ou entrada no grupo.",
+        routineTitle: "Publicar e medir",
+        routine: "Postar 1 conteúdo curto por dia, reaproveitar em 3 canais e anotar o que gerou resposta.",
         tasks: [
           ["Publicar 1 vídeo curto por dia", "Reaproveitar em Reels, TikTok e Shorts."],
+          ["Testar 3 tipos de gancho", "Ex.: antes/depois, lista de achados, problema comum e produto barato."],
           ["Registrar entradas por origem", "Separar Instagram, TikTok, Shorts e direto."],
           ["Salvar 3 criativos com melhor sinal", "Marcar temas que geram comentário, clique ou entrada."],
-          ["Revisar CTA da landing", "Tornar a entrada no grupo simples e direta."]
+          ["Revisar CTA da landing", "Tornar a entrada no grupo simples e direta."],
+          ["Criar banco de aprendizados", "Registrar o que funcionou, o que flopou e qual categoria chamou atenção."]
         ]
       },
       {
@@ -1659,11 +1755,19 @@
         flow: "grupo",
         copy: "Preparar página, rastreamento e criativos para o primeiro teste.",
         objective: "Chegar em 07/07 com estrutura pronta, não com improviso.",
+        deliverableTitle: "Infraestrutura de teste",
+        deliverables: "Landing final, links rastreados, criativo principal, verba máxima e regra de corte documentada.",
+        readyTitle: "Pode ligar campanha",
+        ready: "A entrada no grupo está testada, os links estão separados por origem e existe um criativo orgânico vencedor.",
+        routineTitle: "Auditoria final",
+        routine: "Revisar página, CTA, links, criativo, copy e limite de orçamento antes do dia 07/07.",
         tasks: [
           ["Finalizar landing page", "Promessa, prova visual e botão direto para o grupo."],
           ["Conferir links com rastreamento", "UTMs ou links separados por canal/campanha."],
+          ["Testar entrada completa", "Clicar no link como usuário e confirmar se chega no grupo sem fricção."],
           ["Escolher criativo principal", "Usar somente o que já deu sinal no orgânico."],
-          ["Definir limite de gasto", "R$10 a R$15 por dia, sem aumentar na primeira semana."]
+          ["Definir limite de gasto", "R$10 a R$15 por dia, sem aumentar na primeira semana."],
+          ["Definir regra de pausa", "Pausar se CPE passar de R$2,00 ou se a retenção vier ruim."]
         ]
       },
       {
@@ -1675,11 +1779,19 @@
         flow: "retencao",
         copy: "Rodar baixo orçamento e medir se o custo por entrada faz sentido.",
         objective: "Comprar aprendizado barato e cortar rápido o que não funciona.",
+        deliverableTitle: "Teste controlado",
+        deliverables: "Campanha simples ativa, orçamento limitado, leitura diária de CPE, retenção e cliques.",
+        readyTitle: "Dados confiáveis",
+        ready: "Você sabe quanto custa uma entrada, se a pessoa permanece e se o grupo gera clique nas ofertas.",
+        routineTitle: "Leitura diária",
+        routine: "Olhar CPE, entradas, retenção e cliques; não mexer em tudo ao mesmo tempo.",
         tasks: [
           ["Ativar campanha com R$10 a R$15/dia", "Sem escalar durante os primeiros dias."],
           ["Medir CPE diariamente", "Alerta acima de R$1,50; corte forte acima de R$2,00."],
           ["Comparar retenção por origem", "Entradas baratas que saem rápido não servem."],
-          ["Registrar cliques e vendas", "O grupo precisa gerar intenção, não apenas volume."]
+          ["Registrar cliques e vendas", "O grupo precisa gerar intenção, não apenas volume."],
+          ["Anotar hipótese de cada ajuste", "Ex.: trocar promessa, trocar criativo ou melhorar primeira tela da landing."],
+          ["Manter orçamento travado", "A primeira semana serve para aprender, não para escalar."]
         ]
       },
       {
@@ -1691,11 +1803,19 @@
         flow: "escala",
         copy: "Melhorar anúncio, página, oferta e rotina com base nos dados.",
         objective: "Aumentar previsibilidade antes de subir verba.",
+        deliverableTitle: "Operação melhorada",
+        deliverables: "Criativos ruins pausados, melhores categorias priorizadas, landing ajustada e regra de escala definida.",
+        readyTitle: "Previsibilidade",
+        ready: "O painel mostra custo saudável, retenção boa e algum sinal de clique, venda ou comissão.",
+        routineTitle: "Ciclo semanal",
+        routine: "Revisar dados, decidir cortes, criar variações e manter o que traz entrada qualificada.",
         tasks: [
           ["Pausar criativos caros", "Cortar o que não entrega entrada qualificada."],
           ["Testar nova chamada", "Alterar gancho antes de mexer em tudo."],
+          ["Ajustar primeira dobra da landing", "Melhorar promessa, prova visual ou botão se a captura estiver baixa."],
           ["Dobrar em categorias que vendem", "Focar nos produtos que geram comissão."],
-          ["Definir regra de escala", "Só subir verba com CPE, retenção e vendas saudáveis."]
+          ["Definir regra de escala", "Só subir verba com CPE, retenção e vendas saudáveis."],
+          ["Criar relatório semanal", "Registrar manter, cortar, testar e escalar."]
         ]
       },
       {
@@ -1707,10 +1827,18 @@
         flow: "escala",
         copy: "Escalar com cuidado apenas se a operação já estiver validada.",
         objective: "Aumentar verba aos poucos sem perder controle do custo e da qualidade.",
+        deliverableTitle: "Escala sustentável",
+        deliverables: "Aumento gradual de verba, rotina de criativos, remarketing simples e revisão semanal de resultado.",
+        readyTitle: "Crescer sem perder controle",
+        ready: "Mesmo aumentando verba, CPE, retenção e qualidade das ofertas continuam dentro da regra.",
+        routineTitle: "Gestão de escala",
+        routine: "Subir orçamento em blocos pequenos, manter criativos novos e revisar categorias campeãs.",
         tasks: [
           ["Aumentar verba em blocos pequenos", "Incrementos semanais, não saltos grandes."],
+          ["Proteger orçamento máximo", "Definir teto semanal para evitar gasto emocional."],
           ["Criar rotina de novos criativos", "2 a 3 variações por semana."],
           ["Testar remarketing simples", "Falar com quem clicou ou visitou a landing."],
+          ["Separar categorias campeãs", "Investir mais em produtos que geram clique, venda ou comissão."],
           ["Criar revisão semanal", "Decidir manter, cortar ou escalar com base em dados."]
         ]
       }
@@ -1848,6 +1976,11 @@
           </span>
           <p>${step.copy}</p>
           <small>${step.detail}</small>
+          <span class="mind-micro">
+            <span><b>Ação:</b> ${step.action}</span>
+            <span><b>Métrica:</b> ${step.metric}</span>
+            <span><b>Decisão:</b> ${step.decision}</span>
+          </span>
         </button>
       `).join("");
 
@@ -1980,6 +2113,12 @@
       document.getElementById("selectedPhaseTitle").textContent = phase.title;
       document.getElementById("selectedPhaseCopy").textContent = phase.copy;
       document.getElementById("selectedPhaseObjective").textContent = phase.objective;
+      document.getElementById("selectedPhaseDeliverableTitle").textContent = phase.deliverableTitle;
+      document.getElementById("selectedPhaseDeliverables").textContent = phase.deliverables;
+      document.getElementById("selectedPhaseReadyTitle").textContent = phase.readyTitle;
+      document.getElementById("selectedPhaseReady").textContent = phase.ready;
+      document.getElementById("selectedPhaseRoutineTitle").textContent = phase.routineTitle;
+      document.getElementById("selectedPhaseRoutine").textContent = phase.routine;
       document.getElementById("phaseNotes").value = state.notes[phase.id] || "";
 
       const remaining = daysUntilLaunch();
@@ -2043,7 +2182,7 @@
       const focusBadge = document.getElementById("mindmapFocusBadge");
       const stepPhase = phases[activeStep.phaseIndex] || selectedPhase();
       if (focusTitle) focusTitle.textContent = `${activeStep.title} no funil`;
-      if (focusCopy) focusCopy.textContent = `${activeStep.copy} ${activeStep.detail}`;
+      if (focusCopy) focusCopy.textContent = `${activeStep.copy} Ação: ${activeStep.action} Métrica: ${activeStep.metric} Decisão: ${activeStep.decision}`;
       if (focusBadge) focusBadge.textContent = `Fase: ${stepPhase.title}`;
     }
 
